@@ -1,9 +1,11 @@
+# Imports
 import simpleValidatorForConsoleApp.validator as validator
 from pynput.keyboard import Key, KeyCode
 from .keys import get_key_name
 from datetime import datetime
 from time import sleep
 
+# Funções
 def start_text() -> None:
     print('-' * 21)
     print(f'{"-" * 5} Games AFK {"-" * 5}')
@@ -19,6 +21,7 @@ def main_menu() -> int:
     options = [
         'Trocar o sistema de controle (WASD/Setas)',
         'Iniciar o programa',
+        'Finalizar o programa',
     ]
     question = 'Digite o número da opção desejada: '
     error_message = 'Opção inválida! Por favor, tente novamente.'

@@ -1,10 +1,13 @@
+# Imports
 from pynput.keyboard import KeyCode, Key
 from enum import Enum
 
+# Enum para escolha de teclas
 class KeysChoice(int, Enum):
     WASD = 1
     ARROWS = 2
 
+# Teclas
 WASD_KEYS = [
     KeyCode.from_char('w'),
     KeyCode.from_char('a'),
@@ -19,6 +22,7 @@ ARROW_KEYS = [
     Key.right,
 ]
 
+# Nomes das teclas
 KEYS_NAMES = {
     KeyCode.from_char('w'): 'W',
     KeyCode.from_char('a'): 'A',
@@ -30,5 +34,6 @@ KEYS_NAMES = {
     Key.right: 'Direita',
 }
 
+# Função para obter o nome da tecla
 def get_key_name(key: Key | KeyCode) -> str:
     return KEYS_NAMES.get(key, str(key))

@@ -55,6 +55,9 @@ if __name__ == '__main__':
                 with Listener(on_press=on_press) as listener:
                     listener.join()
                 movement_thread.join()
+            
+            # Finalizar o programa
+            case 3:
                 break
     
     exit_text()
