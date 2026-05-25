@@ -67,6 +67,7 @@ if __name__ == '__main__':
             # Iniciar a tecla esquerda do mouse
             case 3:
                 print('\nIniciando o botão esquerdo do mouse em breve...\n')
+                start_count_text()
                 stop_event.clear()
                 mouse_thread = threading.Thread(target=left_click_mouse_thread)
                 mouse_thread.start()
