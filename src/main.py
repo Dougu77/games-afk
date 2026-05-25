@@ -1,5 +1,15 @@
 # Imports
-from utils.console import start_text, main_menu, choose_keys_menu, start_count_text, register_movement, exit_text
+from utils.console import (
+    start_text,
+    main_menu,
+    choose_keys_menu,
+    start_count_text,
+    register_movement,
+    register_left_clicker_begin,
+    register_left_clicker_end,
+    register_fishing,
+    exit_text
+)
 from pynput.keyboard import Controller, Key, Listener
 from pynput.mouse import Controller as MouseController, Button
 from utils.keys import KeysChoice, WASD_KEYS, ARROW_KEYS
@@ -35,8 +45,23 @@ def move_character_thread() -> None:
 
 def left_click_mouse_thread() -> None:
     mouse.press(Button.left)
+    register_left_clicker_begin()
     stop_event.wait() # Trava a thread eficientemente até o stop_event ser acionado
     mouse.release(Button.left)
+    register_left_clicker_end()
+
+def fishing_on_minecraft() -> None:
+    while not stop_event.is_set():
+
+        # Lança a isca
+        mouse.press(Button.right)
+        stop_event.wait(0.1) # Segura o botão por 100ms
+        mouse.release(Button.right)
+        register_fishing()
+        
+        # Espera 15 segundos ou até a parada ser acionada
+        if stop_event.wait(15):
+            break
 
 def on_press(key: Key) -> None:
     if key == Key.space:
@@ -75,8 +100,19 @@ if __name__ == '__main__':
                     listener.join()
                 mouse_thread.join()
 
-            # Finalizar o programa
+            # Iniciar a pescaria no Minecraft
             case 4:
+                print('\nIniciando a pescaria no Minecraft em breve...\n')
+                start_count_text()
+                stop_event.clear()
+                fishing_thread = threading.Thread(target=fishing_on_minecraft)
+                fishing_thread.start()
+                with Listener(on_press=on_press) as listener:
+                    listener.join()
+                fishing_thread.join()
+
+            # Finalizar o programa
+            case 5:
                 break
     
     exit_text()
