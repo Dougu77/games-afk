@@ -10,17 +10,20 @@ def start_text() -> None:
     print('-' * 21)
     print(f'{"-" * 5} Games AFK {"-" * 5}')
     print('-' * 21)
-    print('\n-> Esse programa fica movendo seu personagem para evitar que você seja desconectado por inatividade em jogos.')
-    print('-> Você pode escolher entre dois sistemas de controle: WASD ou Setas do teclado.')
+    print('\n-> Esse programa faz diversas coisas em AFK para você.')
+    print('-> Você pode se mover sozinho, escolha entre dois sistemas de movimentação: WASD ou Setas do teclado.')
     print('-> Por padrão, o sistema WASD é utilizado.')
+    print('-> Você pode deixar o botão esquerdo do mouse pressionada.')
+    
     print('-> Para parar o programa durante sua exececução, pressione a tecla ESPAÇO.')
     print('-> Começe o programa e entre no jogo que deseja, para o programa funcionar corretamente.')
 
 def main_menu() -> int:
     menu_title = '\nEscolha uma opção:'
     options = [
-        'Trocar o sistema de controle (WASD/Setas)',
-        'Iniciar o programa',
+        'Trocar o sistema de movimentação (WASD/Setas)',
+        'Iniciar a movimentação',
+        'Iniciar o botão esquerdo do mouse',
         'Finalizar o programa',
     ]
     question = 'Digite o número da opção desejada: '
@@ -28,17 +31,16 @@ def main_menu() -> int:
     return validator.validate_option(menu_title, options, question, error_message)
 
 def choose_keys_menu() -> int:
-    menu_title = '\nEscolha o sistema de controle:'
+    menu_title = '\nEscolha o sistema de movimentação:'
     options = [
         'WASD',
-        'Setas do teclado',
+        'Setas',
     ]
     question = 'Digite o número da opção desejada: '
     error_message = 'Opção inválida! Por favor, tente novamente.'
     return validator.validate_option(menu_title, options, question, error_message)
 
-def start_program_text() -> None:
-    print('\nIniciando o programa...\n')
+def start_count_text() -> None:
     for i in range(10, 0, -1):
         print(f'Começando em {i}...')
         sleep(1)

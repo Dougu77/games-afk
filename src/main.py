@@ -1,11 +1,13 @@
 # Imports
-from utils.console import start_text, main_menu, choose_keys_menu, start_program_text, register_movement, exit_text
+from utils.console import start_text, main_menu, choose_keys_menu, start_count_text, register_movement, exit_text
 from pynput.keyboard import Controller, Key, Listener
+from pynput.mouse import Controller as MouseController, Button
 from utils.keys import KeysChoice, WASD_KEYS, ARROW_KEYS
 import threading
 
 # Variáveis globais
 keyboard = Controller()
+mouse = MouseController()
 stop_event = threading.Event()
 keys_choice = KeysChoice.WASD
 
@@ -31,6 +33,11 @@ def move_character_thread() -> None:
             if stop_event.wait(5):
                 break
 
+def left_click_mouse_thread() -> None:
+    mouse.press(Button.left)
+    stop_event.wait() # Trava a thread eficientemente até o stop_event ser acionado
+    mouse.release(Button.left)
+
 def on_press(key: Key) -> None:
     if key == Key.space:
         stop_event.set()
@@ -42,13 +49,14 @@ if __name__ == '__main__':
         option = main_menu()
         match option:
             
-            # Mudança do sistema de teclas
+            # Mudança do sistema de movimento
             case 1:
                 keys_choice = KeysChoice(choose_keys_menu())
             
-            # Iniciar o programa
+            # Iniciar a movimentação
             case 2:
-                start_program_text()
+                print('\nIniciando a movimentação em breve...\n')
+                start_count_text()
                 stop_event.clear()
                 movement_thread = threading.Thread(target=move_character_thread)
                 movement_thread.start()
@@ -56,8 +64,18 @@ if __name__ == '__main__':
                     listener.join()
                 movement_thread.join()
             
-            # Finalizar o programa
+            # Iniciar a tecla esquerda do mouse
             case 3:
+                print('\nIniciando o botão esquerdo do mouse em breve...\n')
+                stop_event.clear()
+                mouse_thread = threading.Thread(target=left_click_mouse_thread)
+                mouse_thread.start()
+                with Listener(on_press=on_press) as listener:
+                    listener.join()
+                mouse_thread.join()
+
+            # Finalizar o programa
+            case 4:
                 break
     
     exit_text()
