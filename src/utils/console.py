@@ -15,6 +15,7 @@ def start_text() -> None:
     print('-> Por padrão, o sistema WASD é utilizado.')
     print('-> Você pode deixar o botão esquerdo do mouse pressionada.')
     print('-> Você pode pescar em farm no Minecraft.')
+    print('-> Você pode coletar recursos e XP na farm de esqueleto no Minecraft.')
     print('-> Para parar o programa durante sua exececução, pressione a tecla ESPAÇO.')
     print('-> Começe o programa e entre no jogo que deseja, para o programa funcionar corretamente.')
 
@@ -25,6 +26,7 @@ def main_menu() -> int:
         'Iniciar a movimentação',
         'Iniciar o botão esquerdo do mouse',
         'Iniciar a pescaria no Minecraft',
+        'Iniciar a farm de esqueleto no Minecraft',
         'Finalizar o programa',
     ]
     question = 'Digite o número da opção desejada: '
@@ -61,6 +63,9 @@ def register_left_clicker_end() -> None:
 
 def register_fishing() -> None:
     print(f'{get_now_formatted()} - Vara usada')
+
+def register_sword() -> None:
+    print(f'{get_now_formatted()} - Espada usada')
 
 def exit_text() -> None:
     input('\nPressione ENTER para sair...')
